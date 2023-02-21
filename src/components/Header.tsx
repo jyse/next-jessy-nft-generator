@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { theme } from "@/styles/Theme";
-import { logo } from "assets/logo.png";
+import { theme } from "../styles/Theme";
 
 const Header = () => {
   return (
