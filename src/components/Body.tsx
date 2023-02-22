@@ -17,6 +17,7 @@ const Body = ({ children }: Props) => {
 
   const getImages = (route) => {
     push(route);
+    console.log(route, "what is route");
   };
 
   return (
@@ -25,21 +26,27 @@ const Body = ({ children }: Props) => {
         <Title>
           <h1>Layers</h1>
         </Title>
-        <LayerButton onClick={() => getImages("/background")} active={active}>
+        <LayerButton onClick={() => getImages("/background")}>
           <p>Background</p>
           <SubPar>4 items • 100% Rarity </SubPar>
         </LayerButton>
-        <LayerButton onClick={() => getImages("/bonsai")} active={active}>
+        <LayerButton onClick={() => getImages("/bonsai")}>
           <p>Bonsai</p>
           <SubPar> 8 items • 100% Rarity </SubPar>
         </LayerButton>
-        <LayerButton onClick={() => getImages("/logo")} active={active}>
+        <LayerButton onClick={() => getImages("/logo")}>
           <p>Logo</p>
           <SubPar> 5 items • 100% Rarity </SubPar>
         </LayerButton>
       </SideBar>
       <Content>
         <Dots>
+          <Title>
+            {route === "/" && <h1> Welcome everybody! </h1>}
+            {route == "/background" && <h1>Background</h1>}
+            {route == "/bonsai" && <h1>Bonsai</h1>}
+            {route == "/logo" && <h1>Logo</h1>}
+          </Title>
           <Gallery>{children}</Gallery>
         </Dots>
       </Content>
@@ -54,6 +61,8 @@ const Main = styled.div`
   height: 100vh;
   display: grid;
   grid-template-columns: 0.2fr 0.8fr;
+
+  padding: 20px;
 `;
 
 const SideBar = styled.div`
@@ -66,11 +75,7 @@ const Title = styled.div`
   color: ${({ theme }) => `${theme.colors.text}`};
 `;
 
-type LayerButtonProps = {
-  active: boolean;
-};
-
-const LayerButton = styled.div<LayerButtonProps>`
+const LayerButton = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -84,6 +89,9 @@ const LayerButton = styled.div<LayerButtonProps>`
   &:hover {
     background: #212737;
     color: ${({ theme }) => `${theme.colors.tertiary}`};
+  }
+  &:focus {
+    background-color: purple;
   }
 `;
 
@@ -105,7 +113,6 @@ const Content = styled.div`
 `;
 
 const Gallery = styled.div`
-  padding: 20px;
   display: grid;
   align-items: center;
   grid-template-columns: 1fr 1fr 1fr;
@@ -120,7 +127,7 @@ const SubPar = styled.div`
 `;
 
 const Dots = styled.div`
-  padding: 80px;
+  padding: 40px 60px 40px 60px;
   position: absolute;
   top: 0;
   z-index: 1;
