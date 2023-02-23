@@ -17,12 +17,16 @@ const ImageContainer = ({ img }: ImageContainerProps) => {
         <Image
           src={require(`/input/${img.layer}/${img.fileName}`)}
           width="250"
-          height="250"
+          height={img.layer == "logo" ? "100" : "250"}
           alt="image"
         />
         <Description>
           <p>{titleLayer} layer</p>
-          <SubPar> {img.fileName} </SubPar>
+          <SubPar>
+            {img.layer == "bonsai"
+              ? img.fileName.slice(0, -4) + " Bonsai"
+              : img.fileName.slice(0, -4)}
+          </SubPar>
         </Description>
       </ImageCard>
     </MainContainer>

@@ -12,11 +12,9 @@ export async function getStaticProps() {
   };
 }
 const BackgroundContent = ({ data }) => {
-  console.log(data, "what is data here?");
   return (
     <>
       {data.map((object, index) => {
-        console.log(object, " object in map");
         return <ImageContainer img={object} key={index} />;
       })}
     </>

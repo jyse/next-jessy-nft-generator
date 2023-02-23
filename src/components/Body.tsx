@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-
 import { useRouter } from "next/router";
+import Welcome from "./Welcome";
+import Image from "next/image";
 
 type Props = {
   children: React.ReactNode;
@@ -10,6 +11,8 @@ type Props = {
 const Body = ({ children }: Props) => {
   const [active, setActive] = useState(true);
   const { route, push } = useRouter();
+  const [amount, setAmount] = useState();
+  const [data, setData] = useState();
 
   type routeProps = {
     route: string;
@@ -17,7 +20,27 @@ const Body = ({ children }: Props) => {
 
   const getImages = (route) => {
     push(route);
-    console.log(route, "what is route");
+  };
+
+  const generateImages = async () => {
+    // Perform API call
+    push("/generate");
+
+    // const result = await fetch("/api/generate", {
+    //   method: "POST",
+    //   body: JSON.stringify({
+    //     amount: 5
+    //   })
+    // });
+
+    // const data = await result.json();
+
+    setData(data);
+
+    // if (amount) {
+
+    // }
+    // push("/generate");
   };
 
   return (
@@ -38,14 +61,30 @@ const Body = ({ children }: Props) => {
           <p>Logo</p>
           <SubPar> 5 items • 100% Rarity </SubPar>
         </LayerButton>
+        <GenerateArea>
+          <Input
+            type="text"
+            placeholder="How many NFTs?"
+            onChange={(e) => setAmount(e.target.value)}
+          />
+          <GenerateButton onClick={() => generateImages()}>
+            <h1>Generate</h1>
+          </GenerateButton>
+        </GenerateArea>
       </SideBar>
       <Content>
         <Dots>
           <Title>
-            {route === "/" && <h1> Welcome everybody! </h1>}
+            {route === "/" && <Welcome />}
             {route == "/background" && <h1>Background</h1>}
             {route == "/bonsai" && <h1>Bonsai</h1>}
             {route == "/logo" && <h1>Logo</h1>}
+            {/* <Image
+              src={data?.result ?? ""}
+              alt="generatedImg"
+              width="100"
+              height="100"
+            /> */}
           </Title>
           <Gallery>{children}</Gallery>
         </Dots>
@@ -95,18 +134,6 @@ const LayerButton = styled.div`
   }
 `;
 
-const Button = styled.div`
-  background-color: ${({ theme }) => `${theme.colors.secondary}`};
-  width: 100px;
-  height: 40px;
-  margin-left: 40px;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: ${({ theme }) => `${theme.colors.quartiary}`};
-`;
-
 const Content = styled.div`
   width: 100%;
   position: relative;
@@ -127,7 +154,7 @@ const SubPar = styled.div`
 `;
 
 const Dots = styled.div`
-  padding: 40px 60px 40px 60px;
+  padding: 40px 70px 40px 50px;
   position: absolute;
   top: 0;
   z-index: 1;
@@ -141,4 +168,34 @@ const Dots = styled.div`
   background-size: 50px 50px;
   background-position: 0 0, 30px 30px;
   background-repeat: repeat;
+`;
+
+const GenerateArea = styled.div`
+  width: 100%;
+  margin-top: 150px;
+`;
+
+const GenerateButton = styled(LayerButton)`
+  color: ${({ theme }) => `${theme.colors.quartiary}`};
+  &:hover {
+    background-color: ${({ theme }) => `${theme.colors.primary}`};
+    color: ${({ theme }) => `${theme.colors.quintiary}`};
+  }
+`;
+
+const Input = styled.input`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
+  background: #151923;
+  height: 60px;
+  width: 100%;
+  border: none;
+  outline: none;
+  border-radius: 6px;
+  color: ${({ theme }) => `${theme.colors.text}`};
+  ::placeholder {
+    color: ${({ theme }) => `${theme.colors.tertiary}`};
+  }
 `;

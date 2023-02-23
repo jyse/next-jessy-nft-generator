@@ -32,7 +32,6 @@ export const getImageFiles = (layer) => {
     .readdirSync(`./input/${layer}`)
     .filter((item) => !/(^|\/)\.[^\/\.]/g.test(item))
     .map((i, index) => {
-      console.log(i, "what is i here?");
       return {
         id: index + 1,
         layer: layer,
@@ -48,21 +47,21 @@ export const layers = [
   {
     id: 1,
     name: "background",
-    location: `${dir}/background/`,
+    location: "/input/background/",
     position: { x: 0, y: 0 },
     size: { width: width, height: height }
   },
   {
     id: 2,
     name: "bonsai",
-    location: `${dir}/bonsai/`,
+    location: "/input/bonsai/",
     position: { x: 0, y: 0 },
     size: { width: width, height: height }
   },
   {
     id: 3,
     name: "logo",
-    location: `${dir}/logo/`,
+    location: "/input/logo/",
     position: { x: 0, y: 0 },
     size: { width: width, height: height }
   }
