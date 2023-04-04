@@ -27,42 +27,45 @@ const cleanName = (_str) => {
   return name;
 };
 
-export const getImageFiles = (layer) => {
-  let imageFiles = fs
-    .readdirSync(`./input/${layer}`)
+const getElements = (path) => {
+  return fs
+    .readdirSync(path)
     .filter((item) => !/(^|\/)\.[^\/\.]/g.test(item))
     .map((i, index) => {
       return {
         id: index + 1,
-        layer: layer,
+        name: cleanName(i),
         fileName: i,
         rarity: addRarity(i)
       };
     });
-
-  return imageFiles;
 };
 
 export const layers = [
   {
     id: 1,
     name: "background",
-    location: "/input/background/",
+    location: "public/input/background/",
+    elements: getElements("public/input/background/"),
     position: { x: 0, y: 0 },
     size: { width: width, height: height }
   },
   {
     id: 2,
     name: "bonsai",
-    location: "/input/bonsai/",
-    position: { x: 0, y: 0 },
-    size: { width: width, height: height }
+    location: "public/input/bonsai/",
+    elements: getElements("public/input/bonsai/"),
+    position: { x: 100, y: 100 },
+    size: { width: 800, height: 800 }
   },
   {
     id: 3,
     name: "logo",
-    location: "/input/logo/",
-    position: { x: 0, y: 0 },
-    size: { width: width, height: height }
+    location: "public/input/logo/",
+    elements: getElements("public/input/logo/"),
+    position: { x: 600, y: 800 },
+    size: { width: 400, height: 180 }
   }
 ];
+
+module.exports = { layers, width, height };

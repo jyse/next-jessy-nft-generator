@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import Welcome from "./Welcome";
-import Image from "next/image";
+import HomePage from "../pages";
+import { getGeneratedNFTImgs } from "./../../services/nfts-processing";
+import NFTsContext from "../context/NFTsContext";
 
 type Props = {
   children: React.ReactNode;
@@ -13,34 +14,23 @@ const Body = ({ children }: Props) => {
   const { route, push } = useRouter();
   const [amount, setAmount] = useState();
   const [data, setData] = useState();
-
-  type routeProps = {
-    route: string;
-  };
+  const { setNFTImages } = useContext(NFTsContext);
 
   const getImages = (route) => {
     push(route);
   };
 
-  const generateImages = async () => {
-    // Perform API call
+  const onSubmit = async (number) => {
+    try {
+      let result = await getGeneratedNFTImgs(number);
+      setNFTImages(result);
+    } catch (err) {
+      console.log(
+        err,
+        "👉🕵️‍♀️ What is in error after getGeneratedNFTIMGs API Call?"
+      );
+    }
     push("/generate");
-
-    // const result = await fetch("/api/generate", {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     amount: 5
-    //   })
-    // });
-
-    // const data = await result.json();
-
-    setData(data);
-
-    // if (amount) {
-
-    // }
-    // push("/generate");
   };
 
   return (
@@ -67,7 +57,7 @@ const Body = ({ children }: Props) => {
             placeholder="How many NFTs?"
             onChange={(e) => setAmount(e.target.value)}
           />
-          <GenerateButton onClick={() => generateImages()}>
+          <GenerateButton onClick={() => onSubmit(amount)}>
             <h1>Generate</h1>
           </GenerateButton>
         </GenerateArea>
@@ -75,16 +65,10 @@ const Body = ({ children }: Props) => {
       <Content>
         <Dots>
           <Title>
-            {route === "/" && <Welcome />}
+            {route === "/" && <HomePage />}
             {route == "/background" && <h1>Background</h1>}
             {route == "/bonsai" && <h1>Bonsai</h1>}
             {route == "/logo" && <h1>Logo</h1>}
-            {/* <Image
-              src={data?.result ?? ""}
-              alt="generatedImg"
-              width="100"
-              height="100"
-            /> */}
           </Title>
           <Gallery>{children}</Gallery>
         </Dots>
@@ -100,7 +84,6 @@ const Main = styled.div`
   height: 100vh;
   display: grid;
   grid-template-columns: 0.2fr 0.8fr;
-
   padding: 20px;
 `;
 

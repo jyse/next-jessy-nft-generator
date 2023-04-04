@@ -2,7 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 const HomePage = () => {
-  return <></>;
+  return (
+    <>
+      <h1>Welcome everybody!</h1>
+    </>
+  );
 };
 
 export default HomePage;

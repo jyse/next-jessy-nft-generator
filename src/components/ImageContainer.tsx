@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import picture from "../../input/bonsai/bonsai01.png";
 
 interface ImageContainerProps {
   img: object;
@@ -15,7 +14,7 @@ const ImageContainer = ({ img }: ImageContainerProps) => {
     <MainContainer>
       <ImageCard>
         <Image
-          src={require(`/input/${img.layer}/${img.fileName}`)}
+          src={require(`/public/input/${img.layer}/${img.fileName}`)}
           width="250"
           height={img.layer == "logo" ? "100" : "250"}
           alt="image"

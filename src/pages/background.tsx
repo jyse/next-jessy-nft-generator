@@ -1,20 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { getImageFiles } from "../../input/config";
 import ImageContainer from "../components/ImageContainer";
+import { getImages } from "../../services/nfts-processing";
 
-export async function getStaticProps() {
-  const imgFiles = await getImageFiles("background");
-  return {
-    props: {
-      data: imgFiles
+const BackgroundContent = () => {
+  const [images, setImagesLayer] = useState([]);
+
+  const getImagesLayer = async (layer) => {
+    try {
+      let data = await getImages(layer);
+      setImagesLayer(data);
+      console.log(data, "what is in result?");
+    } catch (err) {
+      console.log(err, "WHAT IS IN ERROR 🕵️‍♀️");
     }
   };
-}
-const BackgroundContent = ({ data }) => {
+
+  useEffect(() => {
+    getImagesLayer("background");
+  }, []);
+
   return (
     <>
-      {data.map((object, index) => {
+      {images?.map((object, index) => {
         return <ImageContainer img={object} key={index} />;
       })}
     </>

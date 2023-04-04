@@ -9,6 +9,7 @@ type Props = {
 const DefaultLayout = ({ children }: Props) => {
   return (
     <Main>
+      <h1>What's up</h1>
       <Header />
       <Body>{children}</Body>
     </Main>
