@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import ImageContainer from "../components/ImageContainer";
 import { getImages } from "../../services/nfts-processing";
+import Gallery from "../components/Gallery";
 
 const BonsaiContent = () => {
   const [images, setImagesLayer] = useState([]);
@@ -20,11 +21,11 @@ const BonsaiContent = () => {
   }, []);
 
   return (
-    <>
+    <Gallery>
       {images?.map((object, index) => {
         return <ImageContainer img={object} key={index} />;
       })}
-    </>
+    </Gallery>
   );
 };
 

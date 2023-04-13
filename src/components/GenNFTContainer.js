@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Image from "next/image";
 
 const GenNFTContainer = ({ fileName }) => {
+  console.log(fileName, "what is in fileName?🐸🐸🐸");
   return (
     <ImageCard>
       <Image

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Welcome = () => {
-  return <Text>Welcome Everybody</Text>;
+  return <Text>Konnichiwa Welcome </Text>;
 };
 
 export default Welcome;

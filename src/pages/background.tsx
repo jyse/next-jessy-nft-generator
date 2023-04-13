@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ImageContainer from "../components/ImageContainer";
 import { getImages } from "../../services/nfts-processing";
+import Gallery from "../components/Gallery";
 
 const BackgroundContent = () => {
   const [images, setImagesLayer] = useState([]);
@@ -22,9 +23,12 @@ const BackgroundContent = () => {
 
   return (
     <>
-      {images?.map((object, index) => {
-        return <ImageContainer img={object} key={index} />;
-      })}
+      <Text>Generated NFTs</Text>
+      <Gallery>
+        {images?.map((object, index) => {
+          return <ImageContainer img={object} key={index} />;
+        })}
+      </Gallery>
     </>
   );
 };
@@ -33,6 +37,6 @@ export default BackgroundContent;
 
 const Text = styled.div`
   color: white;
-  font-size: 50px;
+  font-size: 46px;
   font-family: monospace;
 `;

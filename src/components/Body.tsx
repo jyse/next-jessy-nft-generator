@@ -1,20 +1,19 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import HomePage from "../pages";
 import { getGeneratedNFTImgs } from "./../../services/nfts-processing";
 import NFTsContext from "../context/NFTsContext";
+import BackgroundContent from "../pages/background";
+import BonsaiContent from "../pages/bonsai";
+import LogoContent from "../pages/logo";
+import GeneratePage from "../pages/generate";
+import SaveCollectionPage from "../pages/save-collection";
 
-type Props = {
-  children: React.ReactNode;
-};
-
-const Body = ({ children }: Props) => {
-  const [active, setActive] = useState(true);
+const Body = () => {
   const { route, push } = useRouter();
   const [amount, setAmount] = useState();
-  const [data, setData] = useState();
   const { setNFTImages } = useContext(NFTsContext);
+  const [generated, setGenerated] = useState(false);
 
   const getImages = (route) => {
     push(route);
@@ -23,14 +22,17 @@ const Body = ({ children }: Props) => {
   const onSubmit = async (number) => {
     try {
       let result = await getGeneratedNFTImgs(number);
+      console.log("🌸 RESULT OF GENERATED NFTs: ", result);
       setNFTImages(result);
+      push("/generate");
     } catch (err) {
-      console.log(
-        err,
-        "👉🕵️‍♀️ What is in error after getGeneratedNFTIMGs API Call?"
-      );
+      console.log("This error occurred after generating NFTs: ", err);
+      push("/error");
     }
-    push("/generate");
+  };
+
+  const saveCollection = () => {
+    push("/save-collection");
   };
 
   return (
@@ -58,19 +60,27 @@ const Body = ({ children }: Props) => {
             onChange={(e) => setAmount(e.target.value)}
           />
           <GenerateButton onClick={() => onSubmit(amount)}>
-            <h1>Generate</h1>
+            <h2>Generate</h2>
           </GenerateButton>
+          {generated && (
+            <SaveCollectionButton onClick={() => saveCollection()}>
+              <h2>Save collection</h2>
+            </SaveCollectionButton>
+          )}
         </GenerateArea>
       </SideBar>
       <Content>
         <Dots>
           <Title>
-            {route === "/" && <HomePage />}
-            {route == "/background" && <h1>Background</h1>}
-            {route == "/bonsai" && <h1>Bonsai</h1>}
-            {route == "/logo" && <h1>Logo</h1>}
+            {route === "/"}
+            {route == "/background" && <BackgroundContent />}
+            {route == "/bonsai" && <BonsaiContent />}
+            {route == "/logo" && <LogoContent />}
+            {route == "/generate" && (
+              <GeneratePage setGenerated={setGenerated} />
+            )}
+            {route == "/save-collection" && <SaveCollectionPage />}
           </Title>
-          <Gallery>{children}</Gallery>
         </Dots>
       </Content>
     </Main>
@@ -122,14 +132,6 @@ const Content = styled.div`
   position: relative;
 `;
 
-const Gallery = styled.div`
-  display: grid;
-  align-items: center;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  gap: 25px;
-`;
-
 const SubPar = styled.div`
   margin-top: 7px;
   font-size: 12px;
@@ -163,6 +165,14 @@ const GenerateButton = styled(LayerButton)`
   &:hover {
     background-color: ${({ theme }) => `${theme.colors.primary}`};
     color: ${({ theme }) => `${theme.colors.quintiary}`};
+  }
+`;
+
+const SaveCollectionButton = styled(LayerButton)`
+  color: ${({ theme }) => `${theme.colors.quintiary}`};
+  &:hover {
+    background-color: ${({ theme }) => `${theme.colors.primary}`};
+    color: ${({ theme }) => `${theme.colors.tertiary}`};
   }
 `;
 
