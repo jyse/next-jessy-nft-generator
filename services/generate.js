@@ -15,6 +15,15 @@ var attributes = [];
 var hash = [];
 var decodedHash = [];
 
+const folderPathNFTs = path.join(
+  process.cwd(),
+  "public",
+  "output",
+  "GeneratedNFTs"
+);
+
+const folderPathJSON = path.join(process.cwd(), "public", "output", "JSON");
+
 const saveLayer = (_canvas, _amount) => {
   fs.writeFileSync(
     `./public/output/generatedNFTs/${_amount}.png`,
@@ -62,13 +71,52 @@ const drawLayer = async (_layer, amount) => {
     _layer.size.width,
     _layer.size.height
   );
-  // console.log(
-  //   `Layer🌊: ${_layer.name} created with element 🔥 ${element.name}`
-  // );
+  console.log(
+    `Layer🌊: ${_layer.name} created with element 🔥 ${element.name}`
+  );
   saveLayer(canvas, amount);
 };
 
+const clearFiles = async () => {
+  if (fs.existsSync(folderPathNFTs)) {
+    // Get all files in the folder
+    const files = fs.readdirSync(folderPathNFTs);
+
+    // Delete each file
+    console.log("💥clearing out the NFT images");
+    files.forEach((file) => {
+      fs.unlinkSync(path.join(folderPathNFTs, file));
+    });
+  }
+
+  if (fs.existsSync(folderPathJSON)) {
+    const files = fs.readdirSync(folderPathJSON);
+
+    // Delete each file
+    console.log("💥clearing out the JSON files");
+    files.forEach((file) => {
+      fs.unlinkSync(path.join(folderPathJSON, file));
+    });
+  }
+};
+
+const lastCheck = async (fileNames) => {
+  fileNames.forEach((fileName) => {
+    const filePath = `${folderPathNFTs}/${fileName}`;
+    fs.access(filePath, fs.constants.F_OK, (err) => {
+      if (err) {
+        console.error(`${filePath} does not exist`);
+      } else {
+        console.log(`${filePath} exists`);
+        return true;
+      }
+    });
+  });
+};
+
 export const generateNFTs = async (amount) => {
+  await clearFiles();
+
   for (let i = 1; i <= amount; i++) {
     layers.forEach((layer) => {
       drawLayer(layer, i);
@@ -78,10 +126,11 @@ export const generateNFTs = async (amount) => {
   }
   await readMetaData();
   let filePaths = await getPNGFilePaths();
+  console.log(filePaths, "FILE PATHS");
   return filePaths;
 };
 
-const readMetaData = () => {
+const readMetaData = async () => {
   fs.readFile("./public/output/_metadata.json", (err, data) => {
     if (err) throw err;
     fs.writeFileSync(
@@ -107,9 +156,7 @@ const getPNGFilePaths = async () => {
 };
 
 export const getIMGLayers = async (layer) => {
-  console.log(layer, "what isin layer?");
   let filePath = path.join("public/input", layer);
-  console.log(filePath, "what is filePath?");
 
   return new Promise((resolve, reject) => {
     fs.readdir(filePath, (err, files) => {

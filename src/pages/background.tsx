@@ -23,7 +23,7 @@ const BackgroundContent = () => {
 
   return (
     <>
-      <Text>Generated NFTs</Text>
+      <Text>Background Layer</Text>
       <Gallery>
         {images?.map((object, index) => {
           return <ImageContainer img={object} key={index} />;
@@ -39,4 +39,5 @@ const Text = styled.div`
   color: white;
   font-size: 46px;
   font-family: monospace;
+  padding-bottom: 14px;
 `;

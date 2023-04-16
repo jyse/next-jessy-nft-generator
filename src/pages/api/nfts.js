@@ -15,10 +15,14 @@ export default async function handler(req, res) {
     }
 
     if (req.body.images) {
-      console.log(req.body.images, "what is in images here? 🖼️🖼️🖼️");
-      let imgsToIPFS = await storeIPFS(req.body.images);
-      console.log("what is res status 🎨", res.status);
-      res.status(200).json("images are being stored");
+      try {
+        const result = await storeIPFS(req.body.images);
+        console.log("🦊RESULT🦊", result);
+        res.status(200).json(result);
+      } catch (error) {
+        console.error("Failed to store files on IPFS", error);
+        res.status(500).send("Internal Server Error");
+      }
     }
   }
 

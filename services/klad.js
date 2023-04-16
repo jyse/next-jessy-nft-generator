@@ -196,7 +196,7 @@
 // };
 
 // console.log("STORING IN IPFS");
-// //   const folderPath = "public/output/generatedNFTs";
+
 // //   const files = fs.readdirSync(folderPath);
 // //   console.log(files, "what is in files here? ");
 

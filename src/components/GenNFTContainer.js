@@ -3,15 +3,15 @@ import styled from "styled-components";
 import Image from "next/image";
 
 const GenNFTContainer = ({ fileName }) => {
-  console.log(fileName, "what is in fileName?🐸🐸🐸");
+  const imageUrl = `/output/generatedNFTs/${fileName}`;
+
   return (
     <ImageCard>
-      <Image
-        src={require(`/public/output/generatedNFTs/${fileName}`)}
-        width="250"
-        height={"250"}
-        alt="image"
-      />
+      {imageUrl ? (
+        <Image src={imageUrl} width="250" height={"250"} alt="image" />
+      ) : (
+        <h2> Image is loading up </h2>
+      )}
       <Description>
         <h2>{fileName}</h2>
         <SubPar>

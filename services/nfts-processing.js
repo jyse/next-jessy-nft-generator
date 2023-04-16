@@ -12,6 +12,7 @@ export const getGeneratedNFTImgs = async (number) => {
   }
 
   const data = await response.json();
+  console.log(data, "RESPONSE ATA ");
   return data;
 };
 
@@ -32,7 +33,7 @@ export const getImages = async (layer) => {
 };
 
 export const storeImages = async (images) => {
-  console.log("🪅Storing images to Pinata");
+  console.log("🪅 Storing images to Pinata");
   const response = await fetch("/api/nfts", {
     method: "POST",
     headers: {
@@ -44,7 +45,6 @@ export const storeImages = async (images) => {
     throw new Error(`API error: ${response.statusText}`);
   }
 
-  let data = await response.json();
-  console.log("what is data at nfts-processing: ", data);
-  return data;
+  let ipfsNFTDir = await response.json();
+  return ipfsNFTDir;
 };

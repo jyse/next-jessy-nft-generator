@@ -7,19 +7,21 @@ import BackgroundContent from "../pages/background";
 import BonsaiContent from "../pages/bonsai";
 import LogoContent from "../pages/logo";
 import GeneratePage from "../pages/generate";
-import SaveCollectionPage from "../pages/save-collection";
+import SaveCollectionPage from "./SaveCollection";
+import MintableCollectionPage from "../pages/mintable-collection";
+import Footer from "../components/Footer";
 
 const Body = () => {
   const { route, push } = useRouter();
   const [amount, setAmount] = useState();
   const { setNFTImages } = useContext(NFTsContext);
-  const [generated, setGenerated] = useState(false);
+  // const [collection, setCollection] = useState(false);
 
   const getImages = (route) => {
     push(route);
   };
 
-  const onSubmit = async (number) => {
+  const generateNFTs = async (number) => {
     try {
       let result = await getGeneratedNFTImgs(number);
       console.log("🌸 RESULT OF GENERATED NFTs: ", result);
@@ -36,62 +38,63 @@ const Body = () => {
   };
 
   return (
-    <Main>
-      <SideBar>
-        <Title>
-          <h1>Layers</h1>
-        </Title>
-        <LayerButton onClick={() => getImages("/background")}>
-          <p>Background</p>
-          <SubPar>4 items • 100% Rarity </SubPar>
-        </LayerButton>
-        <LayerButton onClick={() => getImages("/bonsai")}>
-          <p>Bonsai</p>
-          <SubPar> 8 items • 100% Rarity </SubPar>
-        </LayerButton>
-        <LayerButton onClick={() => getImages("/logo")}>
-          <p>Logo</p>
-          <SubPar> 5 items • 100% Rarity </SubPar>
-        </LayerButton>
-        <GenerateArea>
-          <Input
-            type="text"
-            placeholder="How many NFTs?"
-            onChange={(e) => setAmount(e.target.value)}
-          />
-          <GenerateButton onClick={() => onSubmit(amount)}>
-            <h2>Generate</h2>
-          </GenerateButton>
-          {generated && (
-            <SaveCollectionButton onClick={() => saveCollection()}>
-              <h2>Save collection</h2>
-            </SaveCollectionButton>
-          )}
-        </GenerateArea>
-      </SideBar>
-      <Content>
-        <Dots>
+    <>
+      <Main>
+        <SideBar>
           <Title>
-            {route === "/"}
-            {route == "/background" && <BackgroundContent />}
-            {route == "/bonsai" && <BonsaiContent />}
-            {route == "/logo" && <LogoContent />}
-            {route == "/generate" && (
-              <GeneratePage setGenerated={setGenerated} />
-            )}
-            {route == "/save-collection" && <SaveCollectionPage />}
+            <h1>Layers</h1>
           </Title>
-        </Dots>
-      </Content>
-    </Main>
+          <LayerButton onClick={() => getImages("/background")}>
+            <p>Background</p>
+            <SubPar>4 items • 100% Rarity </SubPar>
+          </LayerButton>
+          <LayerButton onClick={() => getImages("/bonsai")}>
+            <p>Bonsai</p>
+            <SubPar> 8 items • 100% Rarity </SubPar>
+          </LayerButton>
+          <LayerButton onClick={() => getImages("/logo")}>
+            <p>Logo</p>
+            <SubPar> 5 items • 100% Rarity </SubPar>
+          </LayerButton>
+          <GenerateArea>
+            <Input
+              type="text"
+              placeholder="How many NFTs?"
+              onChange={(e) => setAmount(e.target.value)}
+            />
+            <GenerateButton onClick={() => generateNFTs(amount)}>
+              <h2>Generate</h2>
+            </GenerateButton>
+          </GenerateArea>
+        </SideBar>
+        <Content>
+          <Dots>
+            <Title>
+              {route === "/"}
+              {route == "/background" && <BackgroundContent />}
+              {route == "/bonsai" && <BonsaiContent />}
+              {route == "/logo" && <LogoContent />}
+              {route == "/generate" && <GeneratePage />}
+              {route == "/mintable-collection" && <MintableCollectionPage />}
+            </Title>
+          </Dots>
+        </Content>
+      </Main>
+      {/* {collection && (
+        <Footer>
+          <Text>HELLO FOOTER</Text>
+        </Footer>
+      )} */}
+    </>
   );
 };
 
 export default Body;
 
 const Main = styled.div`
+  position: relative;
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 90px);
   display: grid;
   grid-template-columns: 0.2fr 0.8fr;
   padding: 20px;
@@ -114,7 +117,7 @@ const LayerButton = styled.div`
   padding: 10px;
   background: #151923;
   height: 60px;
-  margin-top: 10px;
+  margin-top: 6px;
   border-radius: 6px;
   color: ${({ theme }) => `${theme.colors.text}`};
 
@@ -139,7 +142,7 @@ const SubPar = styled.div`
 `;
 
 const Dots = styled.div`
-  padding: 40px 70px 40px 50px;
+  padding: 40px 70px 30px 50px;
   position: absolute;
   top: 0;
   z-index: 1;
@@ -147,7 +150,7 @@ const Dots = styled.div`
   margin-left: 20px;
   margin-right: 20px;
   width: 1024px;
-  height: 1024px;
+  height: 90%;
   background-color: transparent;
   background-image: radial-gradient(#ccc 1%, transparent 3%);
   background-size: 50px 50px;
@@ -157,7 +160,7 @@ const Dots = styled.div`
 
 const GenerateArea = styled.div`
   width: 100%;
-  margin-top: 150px;
+  margin-top: 30px;
 `;
 
 const GenerateButton = styled(LayerButton)`
@@ -191,4 +194,9 @@ const Input = styled.input`
   ::placeholder {
     color: ${({ theme }) => `${theme.colors.tertiary}`};
   }
+`;
+
+const Text = styled.div`
+  font-size: 20px;
+  color: white;
 `;
