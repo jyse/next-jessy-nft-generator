@@ -64,7 +64,7 @@ export const storeIPFS = async () => {
   const folderPath = "public/output/generatedNFTs";
   const options = {
     pinataMetadata: {
-      name: "GenNFTs" + Date.now(),
+      name: "GenNFTs",
       keyvalues: {
         folder: "NFTsFolder",
         timestamp: Date.now()

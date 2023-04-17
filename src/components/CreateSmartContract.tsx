@@ -1,20 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
+import { createContractAPI } from "../../services/contract-processing";
 
 interface CreateSmartContractProps {
   CID: string;
 }
 
 const CreateSmartContract = ({ CID }: CreateSmartContractProps) => {
-  const handleCreateContractClick = async () => {
-    // try {
-    //   const MyContract = await ethers.getContractFactory("MyContract");
-    //   const myContract = await MyContract.deploy();
-    //   await myContract.deployed();
-    //   console.log("MyContract deployed to:", myContract.address);
-    // } catch (error) {
-    //   console.log(error, "what is in error?");
-    // }
+  const [contractAddress, setContractAddress] = useState("");
+  const createContract = async () => {
+    let contractAddress = await createContractAPI();
+    console.log("🦊🦊🦊 Contract address about to be set 🌸🌸🌸");
+    setContractAddress(contractAddress);
   };
 
   const cancelAction = () => {
@@ -27,7 +24,7 @@ const CreateSmartContract = ({ CID }: CreateSmartContractProps) => {
         <StepText>Step 2: </StepText>Create Smart Contract of collection{" "}
       </Text>
       <ButtonArea>
-        <YesButton onClick={() => handleCreateContractClick()}>
+        <YesButton onClick={() => createContract()}>
           <h2>Yes</h2>
         </YesButton>
         <NoButton onClick={() => cancelAction()}>
