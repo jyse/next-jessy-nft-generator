@@ -44,7 +44,6 @@ export const storeImages = async (images) => {
   if (!response.ok) {
     throw new Error(`API error: ${response.statusText}`);
   }
-
-  let ipfsNFTDir = await response.json();
-  return ipfsNFTDir;
+  let ipfsJSONDir = await response.json();
+  return ipfsJSONDir;
 };

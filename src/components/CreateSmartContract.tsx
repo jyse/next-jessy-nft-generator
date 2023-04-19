@@ -1,17 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { createContractAPI } from "../../services/contract-processing";
+import ContextApp from "../context/ContextApp";
 
-interface CreateSmartContractProps {
-  CID: string;
-}
+const CreateSmartContract = () => {
+  const { setContractDetails } = useContext(ContextApp);
 
-const CreateSmartContract = ({ CID }: CreateSmartContractProps) => {
-  const [contractAddress, setContractAddress] = useState("");
   const createContract = async () => {
-    let contractAddress = await createContractAPI();
-    console.log("🦊🦊🦊 Contract address about to be set 🌸🌸🌸");
-    setContractAddress(contractAddress);
+    let contractDetails = await createContractAPI();
+    console.log("🦊🦊🦊Contract address in the frontend: ", contractDetails);
+    setContractDetails(contractDetails);
   };
 
   const cancelAction = () => {
@@ -39,7 +37,7 @@ export default CreateSmartContract;
 
 const Text = styled.div`
   color: white;
-  font-size: 46px;
+  font-size: 20px;
   font-family: monospace;
   margin-top: 6px;
   margin-bottom: 6px;
@@ -51,7 +49,7 @@ const StepText = styled(Text)`
 
 const OutcomeText = styled.div`
   color: ${({ theme }) => theme.colors.secondary};
-  font-size: 46px;
+  font-size: 20px;
   font-family: monospace;
   margin-top: 40px;
   margin-bottom: 40px;

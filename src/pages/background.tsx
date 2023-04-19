@@ -37,7 +37,7 @@ export default BackgroundContent;
 
 const Text = styled.div`
   color: white;
-  font-size: 46px;
+  font-size: 20px;
   font-family: monospace;
   padding-bottom: 14px;
 `;

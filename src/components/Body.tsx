@@ -2,20 +2,18 @@ import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { getGeneratedNFTImgs } from "./../../services/nfts-processing";
-import NFTsContext from "../context/NFTsContext";
+import ContextApp from "../context/ContextApp";
 import BackgroundContent from "../pages/background";
 import BonsaiContent from "../pages/bonsai";
 import LogoContent from "../pages/logo";
 import GeneratePage from "../pages/generate";
-import SaveCollectionPage from "./SaveCollection";
 import MintableCollectionPage from "../pages/mintable-collection";
-import Footer from "../components/Footer";
+import ConnectWalletPage from "../pages/connect";
 
 const Body = () => {
   const { route, push } = useRouter();
   const [amount, setAmount] = useState();
-  const { setNFTImages } = useContext(NFTsContext);
-  // const [collection, setCollection] = useState(false);
+  const { setNFTImages } = useContext(ContextApp);
 
   const getImages = (route) => {
     push(route);
@@ -76,6 +74,7 @@ const Body = () => {
               {route == "/logo" && <LogoContent />}
               {route == "/generate" && <GeneratePage />}
               {route == "/mintable-collection" && <MintableCollectionPage />}
+              {route == "/connect" && <ConnectWalletPage />}
             </Title>
           </Dots>
         </Content>
@@ -138,7 +137,7 @@ const Content = styled.div`
 const SubPar = styled.div`
   margin-top: 7px;
   font-size: 12px;
-  color: ${({ theme }) => `${theme.colors.secondaryText}`}; ;
+  color: ${({ theme }) => `${theme.colors.secondaryText}`};
 `;
 
 const Dots = styled.div`

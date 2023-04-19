@@ -22,14 +22,14 @@ const storeJSONIpfs = async () => {
       cidVersion: 0
     }
   };
-  pinata
-    .pinFromFS(JSONPath, options)
-    .then((ipfsJSONDir) => {
-      console.log("🐸🐸RESULT🐸🐸", ipfsJSONDir);
-    })
-    .catch((error) => {
-      console.log("🧐ERROR🧐", error);
-    });
+  try {
+    const ipfsJSONDir = await pinata.pinFromFS(JSONPath, options);
+    console.log("🐸🐸RESULT JSON DIR🐸🐸", ipfsJSONDir);
+    return ipfsJSONDir;
+  } catch (error) {
+    console.log("🧐ERROR🧐", error);
+    throw error;
+  }
 };
 
 const writeJSONFiles = async (ipfsNFTDir) => {
@@ -61,6 +61,7 @@ const writeJSONFiles = async (ipfsNFTDir) => {
 };
 
 export const storeIPFS = async () => {
+  console.log("Storing in ipfs at store-nfts");
   const folderPath = "public/output/generatedNFTs";
   const options = {
     pinataMetadata: {
@@ -76,10 +77,11 @@ export const storeIPFS = async () => {
   };
   try {
     const ipfsNFTDir = await pinata.pinFromFS(folderPath, options);
-    console.log("🌸RESULT🌸", ipfsNFTDir);
+    console.log("🌸RESULT NFT DIR🌸", ipfsNFTDir);
     writeJSONFiles(ipfsNFTDir);
-    storeJSONIpfs();
-    return ipfsNFTDir;
+    let ipfsJSONDir = await storeJSONIpfs();
+    console.log("🐝RESULT JSON DIR 🐝");
+    return ipfsJSONDir;
   } catch (error) {
     console.log("🧐ERROR🧐", error);
     throw error;

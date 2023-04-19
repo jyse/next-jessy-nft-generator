@@ -3,7 +3,7 @@ import { GlobalStyles } from "../styles/Global";
 import { theme } from "../styles/Theme";
 import DefaultLayout from "../layouts/DefaultLayout";
 import type { AppProps } from "next/app";
-import NFTsProvider from "../context/NFTsProvider";
+import NFTsProvider from "../context/GenNFTsProvider";
 
 import React from "react";
 

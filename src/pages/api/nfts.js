@@ -16,9 +16,9 @@ export default async function handler(req, res) {
 
     if (req.body.images) {
       try {
-        const result = await storeIPFS(req.body.images);
-        console.log("🦊RESULT🦊", result);
-        res.status(200).json(result);
+        const ipfsJSONDir = await storeIPFS(req.body.images);
+        console.log("🦊RESULT uit STOREIPFS functie🦊", ipfsJSONDir);
+        res.status(200).json(ipfsJSONDir);
       } catch (error) {
         console.error("Failed to store files on IPFS", error);
         res.status(500).send("Internal Server Error");

@@ -1,10 +1,10 @@
 import Image from "next/image";
 import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
-import NFTsContext from "../context/NFTsContext";
+import ContextApp from "../context/ContextApp";
 
 const Footer = () => {
-  const { nftImages } = useContext(NFTsContext);
+  const { nftImages } = useContext(ContextApp);
   const [images, setNFTImages] = useState([]);
 
   useEffect(() => {

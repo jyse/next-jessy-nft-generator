@@ -1,18 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import NFTsContext from "../context/NFTsContext";
+import ContextApp from "../context/ContextApp";
 import { storeImages } from "../../services/nfts-processing";
 
-const SaveCollection = ({ setCollectionIPFS, setCID }) => {
-  const { nftImages } = useContext(NFTsContext);
+const SaveCollection = ({ setCollectionIPFS }) => {
+  const { nftImages } = useContext(ContextApp);
+  const { setJSONCID } = useContext(ContextApp);
 
   const saveCollection = async (nftImages) => {
     try {
-      let ipfsNFTDir = await storeImages(nftImages);
-      console.log("🚀 RETRIEVED IPFSNFTDIR 🚀", ipfsNFTDir);
-      if (ipfsNFTDir?.IpfsHash) {
+      let ipfsJSONDir = await storeImages(nftImages);
+      console.log(ipfsJSONDir, "JSON DIR HERE IN FRONTEND");
+      if (ipfsJSONDir?.IpfsHash) {
+        console.log("🐞Retrieved CID🐞: ", ipfsJSONDir.IpfsHash);
+        setJSONCID(ipfsJSONDir.IpfsHash);
         const timer = setTimeout(() => setCollectionIPFS(true), 1500);
-        const timerTwo = setTimeout(() => setCID(ipfsNFTDir.IpfsHash), 1500);
         return () => clearTimeout(timer);
       }
     } catch (err) {
@@ -41,7 +43,7 @@ export default SaveCollection;
 
 const Text = styled.div`
   color: white;
-  font-size: 46px;
+  font-size: 20px;
   font-family: monospace;
   margin-top: 6px;
   margin-bottom: 6px;

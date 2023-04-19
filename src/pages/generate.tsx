@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import NFTsContext from "../context/NFTsContext";
+import ContextApp from "../context/ContextApp";
 import styled from "styled-components";
 import GenNFTContainer from "../components/GenNFTContainer";
 import { useRouter } from "next/router";
 
 const GeneratePage = () => {
   const { push } = useRouter();
-  const { nftImages } = useContext(NFTsContext);
+  const { nftImages } = useContext(ContextApp);
   const [images, setNFTImages] = useState([]);
   const [showText, setShowText] = useState(false);
 
@@ -26,7 +26,6 @@ const GeneratePage = () => {
       return () => clearTimeout(timer);
     }
   }, [nftImages]);
-  console.log(images, " what is in images here? ");
 
   return (
     <>
@@ -55,7 +54,7 @@ export default GeneratePage;
 
 const Text = styled.div`
   color: white;
-  font-size: 46px;
+  font-size: 20px;
 `;
 
 const Gallery = styled.div`
