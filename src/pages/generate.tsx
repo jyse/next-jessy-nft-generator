@@ -9,10 +9,17 @@ const GeneratePage = () => {
   const { nftImages } = useContext(ContextApp);
   const [images, setNFTImages] = useState([]);
   const [showText, setShowText] = useState(false);
+  const [spheronMethod, setSpheronMethod] = useState(false);
 
-  const makeCollectionMintable = () => {
+  const makeCollectionMintable = (tool) => {
     console.log("making collection mintable");
-    push("/mintable-collection");
+
+    if (tool === "spheron") {
+      setSpheronMethod(true);
+      push("/spheron");
+    } else {
+      push("/mintable-collection");
+    }
   };
 
   const cancelAction = () => {
@@ -32,8 +39,10 @@ const GeneratePage = () => {
       {showText && (
         <QuestionArea>
           <h1>Make this collection mintable? </h1>
+          {spheronMethod && <h1>Let's try it with Spheron this time! </h1>}
           <ButtonArea>
-            <YesButton onClick={() => makeCollectionMintable()}>
+            {/* ARGUMENT ER HIER IN HET BEGIN UITHALEN */}
+            <YesButton onClick={() => makeCollectionMintable("spheron")}>
               <h2>Yes</h2>
             </YesButton>
             <NoButton onClick={() => cancelAction()}>

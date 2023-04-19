@@ -9,12 +9,13 @@ interface ImageContainerProps {
 const ImageContainer = ({ img }: ImageContainerProps) => {
   let str = img.layer;
   let titleLayer = str.charAt(0).toUpperCase() + str.slice(1);
+  let imageUrl = require(`/public/input/${img.layer}/${img.fileName}`);
 
   return (
     <MainContainer>
       <ImageCard>
         <Image
-          src={require(`/public/input/${img.layer}/${img.fileName}`)}
+          src={imageUrl}
           width="250"
           height={img.layer == "logo" ? "100" : "250"}
           alt="image"
@@ -60,5 +61,5 @@ const Description = styled.div`
 const SubPar = styled.div`
   margin-top: 7px;
   font-size: 12px;
-  color: ${({ theme }) => `${theme.colors.secondaryText}`}; ;
+  color: ${({ theme }) => `${theme.colors.secondaryText}`};
 `;

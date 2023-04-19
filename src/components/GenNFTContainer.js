@@ -44,5 +44,5 @@ const Description = styled.div`
 const SubPar = styled.div`
   margin-top: 7px;
   font-size: 12px;
-  color: ${({ theme }) => `${theme.colors.secondaryText}`}; ;
+  color: ${({ theme }) => `${theme.colors.secondaryText}`};
 `;

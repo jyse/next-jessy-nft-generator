@@ -9,6 +9,7 @@ import LogoContent from "../pages/logo";
 import GeneratePage from "../pages/generate";
 import MintableCollectionPage from "../pages/mintable-collection";
 import ConnectWalletPage from "../pages/connect";
+import SpheronPage from "../pages/spheron";
 
 const Body = () => {
   const { route, push } = useRouter();
@@ -75,6 +76,7 @@ const Body = () => {
               {route == "/generate" && <GeneratePage />}
               {route == "/mintable-collection" && <MintableCollectionPage />}
               {route == "/connect" && <ConnectWalletPage />}
+              {route == "/spheron" && <SpheronPage />}
             </Title>
           </Dots>
         </Content>

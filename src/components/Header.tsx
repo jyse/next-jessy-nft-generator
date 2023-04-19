@@ -14,7 +14,9 @@ const Header = () => {
         <Title> NFT Generator</Title>
       </Left>
       <Right>
-        <Image src={spheronLogo} alt="spheron-logo" width="180" height="60" />
+        <Link href="/spheron">
+          <Image src={spheronLogo} alt="spheron-logo" width="180" height="60" />
+        </Link>
         <Link href="/">
           <ResetIcon />
         </Link>
