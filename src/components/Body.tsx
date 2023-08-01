@@ -62,7 +62,7 @@ const Body = () => {
               onChange={(e) => setAmount(e.target.value)}
             />
             <GenerateButton onClick={() => generateNFTs(amount)}>
-              <h2>Konnichiwa</h2>
+              <h2>Generate</h2>
             </GenerateButton>
           </GenerateArea>
         </SideBar>
