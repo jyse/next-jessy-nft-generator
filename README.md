@@ -1,6 +1,6 @@
 # Name of Project
 
-💠 NFT Generator by Jessy 🚐Konnichiwa 💠
+💠 The Ultimate NFT Generator by Jessy The💠
 
 ## Table of contents
 
