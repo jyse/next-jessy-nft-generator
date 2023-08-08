@@ -1,38 +1,60 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Name of Project
 
-## Getting Started
+💠 NFT Generator by Jessy 💠
 
-First, run the development server:
+## Table of contents
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+- [The NFT Generator](#the-nft-generator)
+- [My process](#my-process)
+  - [Built with](#built-with)
+  - [Run the app](#run-the-app)
+  - [Continued development](#continued-development)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### The NFT Generator
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+The NFT Generator is able to:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+=> Generate a whole NFT collection by creating NFT art by compiling different layers together and turning them into NFT's.
+=> All NFT art created by the NFT generated is stored on a so-called IPFS which stands for InterPlanetary File System.
+=> NFT stands for Non-Fungible Token and the NFT art is turned into tokens under the ERC721 standard of a smart contract.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+MVP-version
+👉 In this case, the layers are defined by certain items that have been added to the app.
+👉 There are three layers: a background, a bonsai picture and a logo of w3blab Amsterdam.
+👉 Once you fill in the amount of NFT's you would like to have generated as input, the NFT art will first be generated.
+👉 Then a question comes up, whether you want this collection to be mintable, which means:
+➡️ A smart contracyt will be made for this collection
+➡️ Accompanying NFT's of which the NFT art was generated before, will be turned into real NFT's.
+➡️ First they will be added to the IPFS system, so that the art is at least stored somewhere
+➡️ Second, alle of these NFT's will be stored as a collection under a smart contract and that makes them mintable.
+➡️ A collection being made mintable means:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Anybody is able to own this digital asset on the Test network of Polygon
+- Anybody is also therefore able to sell this digital assets via the Test network of Polygon
 
-## Learn More
+## My process
 
-To learn more about Next.js, take a look at the following resources:
+Steps I've taken to build this NFT Generator:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Test Test git
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Built with
 
-## Deploy on Vercel
+- NextJS
+- TailwindCss
+- [React](https://reactjs.org/) - JS library
+- API route in NextJS app
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Run the App
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+By using the command `npm run dev`
+
+### Continued development
+
+For future release or next stage, I'd suggest to:
+
+👉 ....
+
+### End
+
+Thank you!
