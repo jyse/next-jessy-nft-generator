@@ -1,6 +1,6 @@
 # Name of Project
 
-💠 NFT Generator by Jessy 🚐Konnichiwa 💠
+💠 NFT Generator by Jessy Test Test Branch 💠
 
 ## Table of contents
 
